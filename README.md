@@ -7,10 +7,9 @@
 
 第2步(管理员)
 
-1. 运行 1_Gen_Public_KEY_Private_KEY.bat 生成一对公钥与私钥文件
-2. 将从用户处获得的设备文件放到admin目录
-3. 运行 2_Gen_License_File.bat，生成注册文件 File_License_2025.lic
-4. 运行 3_Varifty.bat 测试一下是否可以使用公钥文件解密注册文件(非必要)
+1. 将从用户处获得的设备文件放到admin目录
+2. 运行 `1_Gen_Public_KEY_Private_KEY.bat` 生成一对公钥与私钥文件
+3. 运行 `2_Gen_License_File.bat`生成注册文件 File_License_2025.lic
 5. 将注册文件【 File_License_2025.lic】与公钥文件【 public_key.txt】一起发给用户即可
 
 

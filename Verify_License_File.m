@@ -1,22 +1,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% fun1
 function Falg = Verify_License_File()
     MachineFile = "File_Machine_Code_2025.lic";
+    Gen_Machine_Code(MachineFile)
+
     LicenseFile = "File_License_2025.lic";
     Falg = false;
 
 
-
-    if ~exist(LicenseFile,'file') || ~exist(MachineFile,'file')
-        Gen_Machine_Code()
+    if ~exist(LicenseFile,'file') 
+        fprintf("设备文件生成完成: %s\n",MachineFile);
+        fprintf("请交付管理员获得注册文件。\n");
         return
     end
     
 
     if ~exist('public_key.txt','file') 
         fprintf("%s not exist.\n",'public_key.txt');
-        Gen_Machine_Code()
         return
     end
+
     
     cmd = sprintf("rsa_xdd_v2.0 -v %s %s public_key.txt",LicenseFile,MachineFile);
     status = system(cmd);
@@ -24,7 +26,8 @@ function Falg = Verify_License_File()
     if status==1
         Falg = true;
     else
-        Gen_Machine_Code()
+        fprintf("设备文件生成完成: %s\n",MachineFile);
+        fprintf("请交付管理员获得注册文件。\n");
     end
 
 end
@@ -34,8 +37,7 @@ end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% fun2
-function Gen_Machine_Code()
-    MachineFile = "File_Machine_Code_2025.lic";
+function Gen_Machine_Code(MachineFile)
     
     cmd = 'wmic baseboard get serialnumber';% 主板序列号
     [~, result] = system(cmd);
@@ -53,6 +55,6 @@ function Gen_Machine_Code()
     fprintf(fid,"%s",STR_ORG);
     fclose(fid);
     
-    fprintf("设备文件生成完成: %s\n",MachineFile);
+    % fprintf("设备文件生成完成: %s\n",MachineFile);
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% fun2
